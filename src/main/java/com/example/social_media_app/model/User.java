@@ -1,5 +1,6 @@
 package com.example.social_media_app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,6 +9,7 @@ import org.hibernate.annotations.UuidGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -38,7 +40,12 @@ public class User {
     @Column(unique = true, nullable = false, name = "email")
     @Email(message = "Email should be valid")
     private String email;
-    private List<UUID> followers;
-    private List<UUID> following;
+    @Pattern(regexp = "^(male|female)$", message ="gender required !")
+    private String gender;
+    private List<UUID> followers = new ArrayList<>() ;
+    private List<UUID> following = new ArrayList<>();
+    @Column(name = "saved_posts")
+    @ManyToMany
+    private List<Post> savedPosts = new ArrayList<>();
 
 }

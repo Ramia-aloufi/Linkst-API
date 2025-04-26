@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,6 @@ import com.example.social_media_app.model.User;
 import com.example.social_media_app.service.UserService;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/user")
@@ -28,11 +28,11 @@ public class userController {
 
 
     @GetMapping("/{id}")
-    public User getUser(@PathParam("id") UUID id) throws Exception {
+    public User getUser(@PathVariable UUID id) throws Exception {
         return userService.getUserById(id);
     }
-    @GetMapping("/")
-    public User getUserByEmail(@RequestBody String email) throws Exception {
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable String email) throws Exception {
         return userService.getUserByEmail(email);
     }
     @GetMapping("/all")
@@ -44,15 +44,15 @@ public class userController {
         return userService.searchUsers(query);
     }
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathParam("id") UUID id) {
+    public void deleteUser(@PathVariable UUID id) {
          userService.deleteUser(id);
     }
     @PutMapping("/{id}")  
-    public User updateUser(@PathParam("id") UUID id, @RequestBody @Valid User user) throws Exception {
+    public User updateUser(@PathVariable UUID id, @RequestBody @Valid User user) throws Exception {
         return userService.updateUser(id, user);
     }
     @PutMapping("/follow/{id}/{userId}")  
-    public User followUser(@PathParam("id") UUID id,@PathParam("userId") UUID userId) throws Exception {
+    public User followUser(@PathVariable UUID id,@PathVariable UUID userId) throws Exception {
         return userService.followUser(id, userId);
     }
     @PostMapping()
