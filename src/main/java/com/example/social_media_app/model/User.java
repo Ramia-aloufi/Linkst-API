@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -44,7 +46,6 @@ public class User {
     private String gender;
     private List<UUID> followers = new ArrayList<>() ;
     private List<UUID> following = new ArrayList<>();
-    @Column(name = "saved_posts")
     @ManyToMany
     private List<Post> savedPosts = new ArrayList<>();
 

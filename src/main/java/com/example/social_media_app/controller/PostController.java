@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,10 +44,13 @@ public class PostController {
     }
     @DeleteMapping("/delete/{postId}/{userId}")
     public String deletePost(@PathVariable UUID postId, @PathVariable UUID userId) {
+        System.out.println("postId: "+postId);
+        System.out.println("userId: "+userId);
         return postService.deletePost(postId, userId);
     }
     @PostMapping("/create/user/{userId}")
-    public Post createPost(@PathVariable UUID userId, Post post) throws Exception {
+    public Post createPost(@PathVariable UUID userId, @RequestBody Post post) throws Exception {
+        System.out.println(" controller: "+post);
         return postService.createNewPost(post, userId);
     }
 

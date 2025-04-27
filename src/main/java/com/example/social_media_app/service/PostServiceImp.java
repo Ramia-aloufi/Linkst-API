@@ -10,6 +10,8 @@ import com.example.social_media_app.model.Post;
 import com.example.social_media_app.model.User;
 import com.example.social_media_app.repository.PostRepository;
 import com.example.social_media_app.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 @Service
 public class PostServiceImp implements PostService {
 
@@ -33,12 +35,14 @@ public class PostServiceImp implements PostService {
         newPost.setUser(user);
         newPost.setVideo(post.getVideo());
         newPost.setImage(post.getImage());
-        return postRepository.save(newPost);
+        Post savedPost = postRepository.save(newPost);
+        System.out.println(savedPost);
+        return savedPost;
     }
 
     public String deletePost(UUID postId, UUID userId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
-        if (post.getUser().getId() != userId) {
+        if (!post.getUser().getId().equals(userId)) {
             throw new RuntimeException("You are not authorized to delete this post");
         }
         postRepository.delete(post);
@@ -66,10 +70,10 @@ public class PostServiceImp implements PostService {
     public Post likePost(UUID postId, UUID userId) throws Exception {
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
         User user = userService.getUserById(userId);
-        if (user == null) {
+        if (user .equals(null)) {
             throw new Exception("User not found");
         }
-        if (post.getUser().getId() == userId) {
+        if (post.getUser().getId().equals(userId)) {
             throw new Exception("You cannot like your own post");
         }
         if (post.getLikes().contains(user)) {
@@ -79,18 +83,20 @@ public class PostServiceImp implements PostService {
         }
         return postRepository.save(post);
     }
-
+    @Transactional
     public Post savedPost(UUID postId, UUID userId) throws Exception {
         User user = userService.getUserById(userId);
-        if (user == null) {
-            throw new Exception("User not found");
+        Post post = findPostById(postId);
+        System.out.println("post: "+post.getId());
+        if (post.getUser().getId().equals(userId)) {
+            throw new Exception("You cannot save your own post");
         }
-        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+
         if (user.getSavedPosts().contains(post)) {
             user.getSavedPosts().remove(post);
         } else {
             user.getSavedPosts().add(post);
-        }
+                }
         userRepository.save(user);
         return post;
     }
