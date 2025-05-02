@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,17 +48,23 @@ public class userController {
     public void deleteUser(@PathVariable UUID id) {
          userService.deleteUser(id);
     }
-    @PutMapping("/{id}")  
-    public User updateUser(@PathVariable UUID id, @RequestBody @Valid User user) throws Exception {
-        return userService.updateUser(id, user);
+    @PutMapping()  
+    public User updateUser(@RequestHeader("Authorization") String token , @RequestBody @Valid User user) throws Exception {
+        User userToken = userService.getUserFromToken(token);
+        return userService.updateUser(userToken.getId(), user);
     }
-    @PutMapping("/follow/{id}/{userId}")  
-    public User followUser(@PathVariable UUID id,@PathVariable UUID userId) throws Exception {
-        return userService.followUser(id, userId);
+    @PutMapping("/follow/{userId}")  
+    public User followUser(@RequestHeader("Authorization") String token ,@PathVariable UUID userId) throws Exception {
+        User user = userService.getUserFromToken(token);
+        return userService.followUser(user.getId(), userId);
     }
     @PostMapping()
     public User createUser(@RequestBody @Valid User user) {
         return userService.register(user);
+    }
+    @GetMapping("/profile")
+    public User getUserFromToken(@RequestHeader("Authorization") String token) throws Exception {
+        return userService.getUserFromToken(token);
     }
 
 

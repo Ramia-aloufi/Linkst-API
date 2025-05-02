@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.social_media_app.config.JwtProvider;
 import com.example.social_media_app.model.User;
 import com.example.social_media_app.repository.UserRepository;
 
@@ -77,4 +78,9 @@ public class UserServiceImp implements UserService {
         return userRepository.searchUsers(query);
     }
 
+    public User getUserFromToken(String token) throws Exception {
+        String email = JwtProvider.getEmailFromToken(token);
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new Exception("User not found"));
+        return user;
+    }
 }

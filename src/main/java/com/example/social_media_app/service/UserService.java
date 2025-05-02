@@ -15,6 +15,7 @@ public interface UserService {
     void deleteUser(UUID id);
     User followUser(UUID userId, UUID followUserId) throws Exception;
     List<User> searchUsers(String query);
+    User getUserFromToken(String token) throws Exception;
 
 
 
