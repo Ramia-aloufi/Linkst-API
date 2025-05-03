@@ -6,34 +6,38 @@ import javax.crypto.SecretKey;
 
 import org.springframework.security.core.Authentication;
 
+import com.example.social_media_app.model.CustomUserDetails;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
-public class JwtProvider  {
+public class JwtProvider {
     private static SecretKey SECRET_KEY = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 
+
     public static String generateToken(Authentication auth) {
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return Jwts.builder()
                 .issuer("Social Media App")
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + JwtConstant.EXPIRATION_TIME))
-                .claim("email", auth.getName())
+                .claim("email", userDetails.getUsername())
                 .signWith(SECRET_KEY)
                 .compact();
     }
 
     public static String getEmailFromToken(String token) {
-        String jwt = token.substring(7);
-        if (jwt.isEmpty()) {
-            return null;
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
         }
+    
         Claims claims = Jwts.parser()
                 .verifyWith(SECRET_KEY)
                 .build()
-                .parseSignedClaims(jwt)
+                .parseSignedClaims(token)
                 .getPayload();
+    
         return claims.get("email", String.class);
-
     }
 }

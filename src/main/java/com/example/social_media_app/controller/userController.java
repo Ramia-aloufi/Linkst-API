@@ -4,17 +4,18 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.social_media_app.model.CustomUserDetails;
 import com.example.social_media_app.model.User;
 import com.example.social_media_app.service.UserService;
 
@@ -49,22 +50,23 @@ public class userController {
          userService.deleteUser(id);
     }
     @PutMapping()  
-    public User updateUser(@RequestHeader("Authorization") String token , @RequestBody @Valid User user) throws Exception {
-        User userToken = userService.getUserFromToken(token);
-        return userService.updateUser(userToken.getId(), user);
+    public User updateUser(Authentication auth, @RequestBody @Valid User user) throws Exception {
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        return userService.updateUser(userDetails.getId(), user);
     }
     @PutMapping("/follow/{userId}")  
-    public User followUser(@RequestHeader("Authorization") String token ,@PathVariable UUID userId) throws Exception {
-        User user = userService.getUserFromToken(token);
-        return userService.followUser(user.getId(), userId);
+    public User followUser(Authentication auth,@PathVariable UUID userId) throws Exception {
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+       return userService.followUser(userDetails.getId(), userId);
     }
     @PostMapping()
     public User createUser(@RequestBody @Valid User user) {
         return userService.register(user);
     }
     @GetMapping("/profile")
-    public User getUserFromToken(@RequestHeader("Authorization") String token) throws Exception {
-        return userService.getUserFromToken(token);
+    public Object getUserProfile(Authentication auth) throws Exception {
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        return  userService.getUserById(userDetails.getId());
     }
 
 
