@@ -59,7 +59,7 @@ public class CommentServiceImp implements CommentService {
     }
 
     
-    public Comment likeComment(String commentId, UUID userId) throws Exception {
+    public Comment likeComment(UUID commentId, UUID userId) throws Exception {
         Comment comment = getCommentById(commentId);
         User user = userService.getUserById(userId);
         if (comment.getLikes().contains(user)) {
