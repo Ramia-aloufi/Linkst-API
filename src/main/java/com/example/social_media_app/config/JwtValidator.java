@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.social_media_app.model.CustomUserDetails;
+import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.service.CustomUserDetailsService;
 
 import jakarta.servlet.FilterChain;

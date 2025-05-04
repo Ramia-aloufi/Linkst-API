@@ -2,7 +2,7 @@ package com.example.social_media_app.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.social_media_app.model.User;
+import com.example.social_media_app.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;

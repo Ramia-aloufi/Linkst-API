@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.social_media_app.model.CustomUserDetails;
-import com.example.social_media_app.model.Post;
-import com.example.social_media_app.service.PostService;
-import com.example.social_media_app.service.UserService;
+import com.example.social_media_app.model.entity.Post;
+import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.service.interfaces.PostService;
+import com.example.social_media_app.service.interfaces.UserService;
 @RestController
 @RequestMapping("/post")
 public class PostController {

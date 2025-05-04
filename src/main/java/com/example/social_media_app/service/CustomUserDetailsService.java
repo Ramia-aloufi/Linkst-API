@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.social_media_app.model.CustomUserDetails;
-import com.example.social_media_app.model.User;
+import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.repository.UserRepository;
 
 @Service

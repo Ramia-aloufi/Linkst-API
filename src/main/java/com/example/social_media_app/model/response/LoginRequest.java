@@ -1,4 +1,4 @@
-package com.example.social_media_app.model;
+package com.example.social_media_app.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
-    String token;
-    String message;
-
+public class LoginRequest {
+    private String email;
+    private String password;
 }

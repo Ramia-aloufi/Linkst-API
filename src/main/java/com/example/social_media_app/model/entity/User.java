@@ -1,4 +1,4 @@
-package com.example.social_media_app.model;
+package com.example.social_media_app.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;

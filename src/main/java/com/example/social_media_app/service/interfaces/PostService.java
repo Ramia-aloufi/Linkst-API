@@ -1,9 +1,9 @@
-package com.example.social_media_app.service;
+package com.example.social_media_app.service.interfaces;
 
 import java.util.List;
 import java.util.UUID;
 
-import com.example.social_media_app.model.Post;
+import com.example.social_media_app.model.entity.Post;
 
 public interface PostService {
     Post createNewPost(Post post, UUID userId) throws Exception;

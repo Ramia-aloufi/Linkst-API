@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.social_media_app.model.CustomUserDetails;
-import com.example.social_media_app.model.User;
-import com.example.social_media_app.service.UserService;
+import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.service.interfaces.UserService;
 
 import jakarta.validation.Valid;
 

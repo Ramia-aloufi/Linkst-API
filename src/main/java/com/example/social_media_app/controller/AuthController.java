@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.social_media_app.model.AuthResponse;
-import com.example.social_media_app.model.LoginRequest;
-import com.example.social_media_app.model.User;
-import com.example.social_media_app.service.AuthService;
+import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.AuthResponse;
+import com.example.social_media_app.model.response.LoginRequest;
+import com.example.social_media_app.service.interfaces.AuthService;
 
 
 @RestController

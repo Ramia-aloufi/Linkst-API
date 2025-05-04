@@ -1,4 +1,4 @@
-package com.example.social_media_app.model;
+package com.example.social_media_app.model.response;
 
 import java.util.Collection;
 import java.util.UUID;

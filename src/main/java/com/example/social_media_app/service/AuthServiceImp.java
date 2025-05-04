@@ -8,10 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.social_media_app.config.JwtProvider;
-import com.example.social_media_app.model.CustomUserDetails;
-import com.example.social_media_app.model.LoginRequest;
-import com.example.social_media_app.model.User;
+import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.model.response.LoginRequest;
 import com.example.social_media_app.repository.UserRepository;
+import com.example.social_media_app.service.interfaces.AuthService;
+import com.example.social_media_app.service.interfaces.UserService;
 
 @Service
 public class AuthServiceImp implements AuthService {

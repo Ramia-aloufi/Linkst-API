@@ -1,9 +1,9 @@
-package com.example.social_media_app.service;
+package com.example.social_media_app.service.interfaces;
 
 import java.util.List;
 import java.util.UUID;
 
-import com.example.social_media_app.model.User;
+import com.example.social_media_app.model.entity.User;
 
 public interface UserService {
     // Define the methods that will be implemented in the UserServiceImp class

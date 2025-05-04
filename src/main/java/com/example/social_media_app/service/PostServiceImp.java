@@ -6,10 +6,12 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.social_media_app.model.Post;
-import com.example.social_media_app.model.User;
+import com.example.social_media_app.model.entity.Post;
+import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.PostRepository;
 import com.example.social_media_app.repository.UserRepository;
+import com.example.social_media_app.service.interfaces.PostService;
+import com.example.social_media_app.service.interfaces.UserService;
 
 import jakarta.transaction.Transactional;
 @Service

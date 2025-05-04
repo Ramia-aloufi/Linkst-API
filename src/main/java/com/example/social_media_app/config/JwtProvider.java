@@ -6,7 +6,7 @@ import javax.crypto.SecretKey;
 
 import org.springframework.security.core.Authentication;
 
-import com.example.social_media_app.model.CustomUserDetails;
+import com.example.social_media_app.model.response.CustomUserDetails;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
