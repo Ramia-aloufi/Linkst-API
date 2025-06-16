@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.social_media_app.exception.UserException;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.UserRepository;
 import com.example.social_media_app.service.interfaces.UserService;
@@ -29,8 +30,8 @@ public class UserServiceImp implements UserService {
 
     }
 
-    public User getUserById(UUID id) throws Exception {
-        User user = userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
+    public User getUserById(UUID id) throws UserException {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserException("User not found"));
         return user;
     }
 
@@ -44,7 +45,7 @@ public class UserServiceImp implements UserService {
         return users;
     }
 
-    public User updateUser(UUID id, User user) throws Exception {
+    public User updateUser(UUID id, User user) throws UserException {
         User existingUser = getUserById(id);
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
@@ -59,11 +60,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Transactional
-    public User followUser(UUID userId, UUID followUserId) throws Exception {
+    public User followUser(UUID userId, UUID followUserId) throws UserException {
         User user1 = getUserById(userId);
         User user2 = getUserById(followUserId);
         if (!user1.getFollowers().isEmpty() || user1.getFollowers().contains(user2.getId())) {
-            throw new Exception("You are already following this user");
+            throw new UserException("You are already following this user");
         }
 
         user1.getFollowing().add(user2.getId());
