@@ -22,7 +22,7 @@ import com.example.social_media_app.service.interfaces.UserService;
 public class ChatController {
 
     @Autowired
-    private ChatService chatService;
+    ChatService chatService;
 
     @Autowired
     UserService userService;

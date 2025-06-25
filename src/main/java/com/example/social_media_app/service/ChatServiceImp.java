@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.ChatRepository;
 import com.example.social_media_app.service.interfaces.ChatService;
-
+@Service
 public class ChatServiceImp implements ChatService {
 
     @Autowired

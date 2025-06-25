@@ -20,10 +20,12 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public AuthResponse login(@RequestBody LoginRequest loginRequest) {
         String auth = authService.login(loginRequest);
-
-        return auth;
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setToken(auth);
+        authResponse.setMessage("User logged in successfully");
+        return authResponse;
     }
 
 

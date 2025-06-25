@@ -1,5 +1,6 @@
 package com.example.social_media_app.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class CommentController {
     public Comment updateComment(Authentication auth, @PathVariable UUID commentId) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return commentService.likeComment(commentId, userDetails.getId());
+    }
+    @GetMapping("/post/{postId}")
+    public List<Comment> getCommentByPostId(@PathVariable UUID postId) throws Exception
+    {
+        return commentService.getCommentByPostId(postId);
     }
 
 }

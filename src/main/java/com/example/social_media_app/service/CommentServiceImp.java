@@ -1,5 +1,6 @@
 package com.example.social_media_app.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,14 @@ public class CommentServiceImp implements CommentService {
         commentRepository.save(comment);
         return comment;
         
+    }
+
+
+   
+    public List<Comment> getCommentByPostId(UUID postId) throws Exception {
+        Post post = postRepository.findById(postId)
+            .orElseThrow(() -> new Exception("Post not found with ID: " + postId));
+        return post.getComments();
     }
 
 }
