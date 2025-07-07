@@ -7,7 +7,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,17 +45,20 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "Post must be associated with a user")
+    @JsonIgnoreProperties({"email","password", "createdAt", "updatedAt","followers", "following","gender"})
     private User user;
     @Size(max = 5000, message = "Content must not exceed 5000 characters")
     @NotBlank(message = "Content cannot be blank")
     @Column(nullable = false)
     private String content;
-    private String image;
-    private String video;
+    private String media;
+    private String type;
     @OneToMany
+    @JsonIgnoreProperties({"firstName", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender"})
     private List<User> likes = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @JsonManagedReference
+    @JsonIgnoreProperties({"post", "user", "likes", "createdAt", "updatedAt"})
     private List<Comment> comments = new ArrayList<>();
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -68,6 +72,11 @@ public class Post {
     @PreUpdate
     public void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setImageUrl(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setImageUrl'");
     }
 
 }

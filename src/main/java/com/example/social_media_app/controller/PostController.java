@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.service.CloudinaryService;
 import com.example.social_media_app.service.interfaces.PostService;
 import com.example.social_media_app.service.interfaces.UserService;
 @RestController
@@ -23,6 +26,9 @@ public class PostController {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    CloudinaryService cloudinaryService;
 
     @Autowired
     UserService userService;
@@ -56,9 +62,16 @@ public class PostController {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return postService.deletePost(postId, userDetails.getId());
     }
-    @PostMapping("/create")
-    public Post createPost(Authentication auth, @RequestBody Post post) throws Exception {
-                CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+    @PostMapping(value = "/create", consumes = "multipart/form-data")
+
+    public Post createPost(Authentication auth, @RequestParam("media") MultipartFile file, @RequestParam("caption") String caption,@RequestParam("content") String content) throws Exception {
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        var uploadResult = cloudinaryService.uploadFile(file);
+        Post post = new Post();
+        post.setMedia(uploadResult.get("url"));
+        post.setType(uploadResult.get("type"));
+        post.setCaption(caption);
+        post.setContent(content);
         return postService.createNewPost(post, userDetails.getId());
     }
 

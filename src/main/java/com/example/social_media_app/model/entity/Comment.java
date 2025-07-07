@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -42,10 +44,12 @@ public class Comment {
     private User user;
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
+    @JsonBackReference
     @NotNull(message = "Comment must be associated with a post")
     private Post post;
     @ManyToMany
     @JoinTable(name = "comment_likes", joinColumns = @JoinColumn(name = "comment_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+
     private List<User> likes = new ArrayList<>();
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();

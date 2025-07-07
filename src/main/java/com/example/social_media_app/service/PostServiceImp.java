@@ -35,8 +35,8 @@ public class PostServiceImp implements PostService {
         newPost.setCaption(post.getCaption());
         newPost.setContent(post.getContent());
         newPost.setUser(user);
-        newPost.setVideo(post.getVideo());
-        newPost.setImage(post.getImage());
+        newPost.setMedia(post.getMedia());
+        newPost.setType(post.getType());
         Post savedPost = postRepository.save(newPost);
         System.out.println(savedPost);
         return savedPost;

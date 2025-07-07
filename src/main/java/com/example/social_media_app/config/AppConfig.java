@@ -34,7 +34,8 @@ public class AppConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/signup", "/auth/login").permitAll()// whitelist
+                        .requestMatchers("/auth/signup", "/auth/login", "/actuator/**").permitAll()// whitelist
+                    
                         .anyRequest().authenticated() // Protect all other routes
                 )
                 .addFilterBefore(new JwtValidator(customUserDetailsService), BasicAuthenticationFilter.class)
