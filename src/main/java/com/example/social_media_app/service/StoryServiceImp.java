@@ -11,17 +11,16 @@ import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.StoryRepository;
 import com.example.social_media_app.service.interfaces.StoryService;
 import com.example.social_media_app.service.interfaces.UserService;
+
 @Service
 public class StoryServiceImp implements StoryService {
-
 
     @Autowired
     private StoryRepository storyRepository;
     @Autowired
     private UserService userService;
 
-   
-    public Story createStory(Story story, UUID userId) throws Exception  {
+    public Story createStory(Story story, UUID userId) throws Exception {
         User user = userService.getUserById(userId);
         Story newStory = new Story();
         newStory.setCaption(story.getCaption());
@@ -32,7 +31,6 @@ public class StoryServiceImp implements StoryService {
 
     }
 
-   
     public List<Story> getAllStoriesByUserId(UUID userId) throws Exception {
         return storyRepository.findByUserId(userId);
     }

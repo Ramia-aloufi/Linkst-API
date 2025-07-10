@@ -10,6 +10,4 @@ public interface StoryService {
 
     List<Story> getAllStoriesByUserId(UUID userId) throws Exception;
 
-
-
 }

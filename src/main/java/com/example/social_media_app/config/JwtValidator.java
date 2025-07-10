@@ -2,7 +2,6 @@ package com.example.social_media_app.config;
 
 import java.io.IOException;
 
-
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +15,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 public class JwtValidator extends OncePerRequestFilter {
 
     private final CustomUserDetailsService customUserDetailsService;

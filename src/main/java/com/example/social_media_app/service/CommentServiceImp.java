@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.social_media_app.model.CommentDto;
 import com.example.social_media_app.model.entity.Comment;
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.entity.User;
@@ -18,20 +19,21 @@ import com.example.social_media_app.service.interfaces.PostService;
 import com.example.social_media_app.service.interfaces.UserService;
 
 import jakarta.transaction.Transactional;
+
 @Service
 public class CommentServiceImp implements CommentService {
 
     @Autowired
-     CommentRepository commentRepository;
+    CommentRepository commentRepository;
 
-     @Autowired
-     PostService postService;
+    @Autowired
+    PostService postService;
 
-     @Autowired
-     UserService userService;
+    @Autowired
+    UserService userService;
 
-     @Autowired
-     PostRepository postRepository;
+    @Autowired
+    PostRepository postRepository;
 
     private static final Logger logger = (Logger) LoggerFactory.getLogger(CommentService.class);
 
@@ -52,14 +54,12 @@ public class CommentServiceImp implements CommentService {
         return savedComment;
     }
 
-    
     public Comment getCommentById(UUID commentId) throws Exception {
-       Comment comment  = commentRepository.findById(commentId)
-        .orElseThrow(() -> new Exception("Comment not found with ID: " + commentId));
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new Exception("Comment not found with ID: " + commentId));
         return comment;
     }
 
-    
     public Comment likeComment(UUID commentId, UUID userId) throws Exception {
         Comment comment = getCommentById(commentId);
         User user = userService.getUserById(userId);
@@ -72,15 +72,12 @@ public class CommentServiceImp implements CommentService {
         }
         commentRepository.save(comment);
         return comment;
-        
+
     }
 
-
-   
-    public List<Comment> getCommentByPostId(UUID postId) throws Exception {
-        Post post = postRepository.findById(postId)
-            .orElseThrow(() -> new Exception("Post not found with ID: " + postId));
-        return post.getComments();
+    public List<CommentDto> getCommentByPostId(UUID postId) throws Exception {
+        return commentRepository.findByPostId(postId);
     }
+    
 
 }

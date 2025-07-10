@@ -11,6 +11,7 @@ import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.ReelsRepository;
 import com.example.social_media_app.service.interfaces.ReelsService;
 import com.example.social_media_app.service.interfaces.UserService;
+
 @Service
 public class ReelsServiceImp implements ReelsService {
 

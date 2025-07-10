@@ -58,7 +58,7 @@ public class Post {
     private List<User> likes = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    @JsonIgnoreProperties({"post", "user", "likes", "createdAt", "updatedAt"})
+    @JsonIgnoreProperties({"post", "likes", "createdAt", "updatedAt"})
     private List<Comment> comments = new ArrayList<>();
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();

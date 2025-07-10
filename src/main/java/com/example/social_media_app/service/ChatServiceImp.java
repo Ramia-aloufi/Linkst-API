@@ -10,45 +10,37 @@ import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.ChatRepository;
 import com.example.social_media_app.service.interfaces.ChatService;
+
 @Service
 public class ChatServiceImp implements ChatService {
 
     @Autowired
     private ChatRepository chatRepository;
 
-
- 
     public Chat createChat(User reqUser, User user2) throws Exception {
-       Chat chatExist = chatRepository.findChatByUsersId(reqUser, user2);
-       if (chatExist != null) {
-        return chatExist;
-    }
+        Chat chatExist = chatRepository.findChatByUsersId(reqUser, user2);
+        if (chatExist != null) {
+            return chatExist;
+        }
         Chat newChat = new Chat();
         newChat.getUsers().add(reqUser);
         newChat.getUsers().add(user2);
         chatRepository.save(newChat);
         return newChat;
-        
+
     }
 
-  
-    public Chat getChatById(UUID chatId) throws Exception{
+    public Chat getChatById(UUID chatId) throws Exception {
         Chat chat = chatRepository.findById(chatId).orElseThrow(() -> new Exception("Chat not found"));
         return chat;
     }
 
-   
-    public List<Chat> getAllChatsByUserId(UUID userId)throws Exception {
+    public List<Chat> getAllChatsByUserId(UUID userId) throws Exception {
         List<Chat> userChat = chatRepository.findByUsersId(userId);
         if (userChat == null) {
             throw new Exception("No chats found for this user");
         }
         return userChat;
     }
-
-
-
-
-  
 
 }

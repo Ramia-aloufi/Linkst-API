@@ -28,47 +28,52 @@ public class userController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/{id}")
     public User getUser(@PathVariable UUID id) throws Exception {
         return userService.getUserById(id);
     }
+
     @GetMapping("/email/{email}")
     public User getUserByEmail(@PathVariable String email) throws Exception {
         return userService.getUserByEmail(email);
     }
+
     @GetMapping("/all")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @GetMapping("/search")
     public List<User> searchUsers(@RequestParam("query") String query) {
         return userService.searchUsers(query);
     }
+
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable UUID id) {
-         userService.deleteUser(id);
+        userService.deleteUser(id);
     }
-    @PutMapping()  
+
+    @PutMapping()
     public User updateUser(Authentication auth, @RequestBody @Valid User user) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return userService.updateUser(userDetails.getId(), user);
     }
-    @PutMapping("/follow/{userId}")  
-    public User followUser(Authentication auth,@PathVariable UUID userId) throws Exception {
+
+    @PutMapping("/follow/{userId}")
+    public User followUser(Authentication auth, @PathVariable UUID userId) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-       return userService.followUser(userDetails.getId(), userId);
+        return userService.followUser(userDetails.getId(), userId);
     }
+
     @PostMapping()
     public User createUser(@RequestBody @Valid User user) {
         return userService.register(user);
     }
+
     @GetMapping("/profile")
     public Object getUserProfile(Authentication auth) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        return  userService.getUserById(userDetails.getId());
+        return userService.getUserById(userDetails.getId());
     }
-
-
 
 }

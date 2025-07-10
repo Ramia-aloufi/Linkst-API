@@ -11,13 +11,11 @@ import com.example.social_media_app.model.response.AuthResponse;
 import com.example.social_media_app.model.response.LoginRequest;
 import com.example.social_media_app.service.interfaces.AuthService;
 
-
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
     AuthService authService;
-
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest loginRequest) {
@@ -28,7 +26,6 @@ public class AuthController {
         return authResponse;
     }
 
-
     @PostMapping("/signup")
     public AuthResponse signup(@RequestBody User user) {
         String token = authService.signUp(user);
@@ -37,7 +34,5 @@ public class AuthController {
         authResponse.setMessage("User registered successfully");
         return authResponse;
     }
-
-    
 
 }

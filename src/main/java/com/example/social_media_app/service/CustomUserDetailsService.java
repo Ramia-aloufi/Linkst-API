@@ -23,10 +23,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     public CustomUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("email: \n" + email);
         User user = userRepository.findUserByEmail(email)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
         System.out.println("user: \n" + user.getFirstName());
         List<GrantedAuthority> authorities = new ArrayList<>();
-        CustomUserDetails userDetails = new CustomUserDetails(user.getId(), user.getEmail(), user.getPassword(), authorities);
+        CustomUserDetails userDetails = new CustomUserDetails(user.getId(), user.getEmail(), user.getPassword(),
+                authorities);
         System.out.println("userDetails: \n" + userDetails.getId());
         return userDetails;
     }

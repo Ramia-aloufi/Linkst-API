@@ -35,14 +35,14 @@ public class AppConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/signup", "/auth/login", "/actuator/**").permitAll()// whitelist
-                    
+
                         .anyRequest().authenticated() // Protect all other routes
                 )
                 .addFilterBefore(new JwtValidator(customUserDetailsService), BasicAuthenticationFilter.class)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use stateless session
                 )
-                .cors(cors -> cors.configurationSource(corseConfigurationSource())  );
+                .cors(cors -> cors.configurationSource(corseConfigurationSource()));
 
         return http.build();
     }
@@ -52,7 +52,8 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://localhost:5173")); // Allow all origins
+                config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:5173")); // Allow all
+                                                                                                           // origins
                 config.setAllowedMethods(Collections.singletonList("*")); // Allow all methods (GET, POST, etc.)
                 config.setAllowedHeaders(Collections.singletonList("*")); // Allow specific headers
                 config.setAllowCredentials(true); // Allow credentials (cookies, authorization headers, etc.)

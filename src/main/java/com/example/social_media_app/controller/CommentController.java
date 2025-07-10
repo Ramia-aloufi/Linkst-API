@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.social_media_app.model.CommentDto;
 import com.example.social_media_app.model.entity.Comment;
 import com.example.social_media_app.model.response.CommentCreate;
 import com.example.social_media_app.model.response.CustomUserDetails;
@@ -50,9 +51,9 @@ public class CommentController {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return commentService.likeComment(commentId, userDetails.getId());
     }
+
     @GetMapping("/post/{postId}")
-    public List<Comment> getCommentByPostId(@PathVariable UUID postId) throws Exception
-    {
+    public List<CommentDto> getCommentByPostId(@PathVariable UUID postId) throws Exception {
         return commentService.getCommentByPostId(postId);
     }
 

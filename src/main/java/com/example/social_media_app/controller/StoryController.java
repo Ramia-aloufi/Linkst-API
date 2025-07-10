@@ -18,13 +18,11 @@ import com.example.social_media_app.service.interfaces.StoryService;
 @RequestMapping("/story")
 public class StoryController {
 
-
     @Autowired
     private StoryService storyService;
 
-
     @PostMapping("/create")
-    public Story createStory(@RequestBody Story story,Authentication auth) {
+    public Story createStory(@RequestBody Story story, Authentication auth) {
         try {
             CustomUserDetails userId = (CustomUserDetails) auth.getPrincipal();
             return storyService.createStory(story, userId.getId());
@@ -32,6 +30,7 @@ public class StoryController {
             throw new RuntimeException("Error creating story: " + e.getMessage());
         }
     }
+
     @GetMapping("/user")
     public List<Story> getAllStoriesByUserId(Authentication auth) {
         try {

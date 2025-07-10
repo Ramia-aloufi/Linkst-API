@@ -15,7 +15,6 @@ import io.jsonwebtoken.security.Keys;
 public class JwtProvider {
     private static SecretKey SECRET_KEY = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 
-
     public static String generateToken(Authentication auth) {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return Jwts.builder()
@@ -31,13 +30,13 @@ public class JwtProvider {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
-    
+
         Claims claims = Jwts.parser()
                 .verifyWith(SECRET_KEY)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-    
+
         return claims.get("email", String.class);
     }
 }

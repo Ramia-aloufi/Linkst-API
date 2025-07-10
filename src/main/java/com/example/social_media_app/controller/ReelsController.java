@@ -27,6 +27,7 @@ public class ReelsController {
         Reels newReels = reelsService.createReels(reels, userDetails.getId());
         return newReels;
     }
+
     @GetMapping("/getAll")
     public List<Reels> getAllReels() throws Exception {
         List<Reels> reelsList = reelsService.getAllReels();

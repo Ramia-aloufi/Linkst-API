@@ -78,5 +78,3 @@ public class UserServiceImp implements UserService {
         return userRepository.searchUsers(query);
     }
 }
-
-

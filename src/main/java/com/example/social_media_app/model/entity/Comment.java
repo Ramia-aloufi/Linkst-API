@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.hibernate.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,6 +42,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "Comment must be associated with a user")
+    @JsonIgnoreProperties({"password", "email", "roles", "posts", "comments", "createdAt", "updatedAt", "followers", "following","gender"})
     private User user;
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)

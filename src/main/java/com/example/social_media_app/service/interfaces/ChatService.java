@@ -8,8 +8,10 @@ import com.example.social_media_app.model.entity.User;
 
 public interface ChatService {
 
-    Chat createChat(User reqUser, User user2)throws Exception;
-    Chat getChatById(UUID chatId)throws Exception;
-    List<Chat> getAllChatsByUserId(UUID userId)throws Exception;
+    Chat createChat(User reqUser, User user2) throws Exception;
+
+    Chat getChatById(UUID chatId) throws Exception;
+
+    List<Chat> getAllChatsByUserId(UUID userId) throws Exception;
 
 }

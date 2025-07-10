@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -49,5 +50,11 @@ public class User {
     @JsonIgnore
     @ManyToMany
     private List<Post> savedPosts = new ArrayList<>();
+
+
+    @Transient
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
 }

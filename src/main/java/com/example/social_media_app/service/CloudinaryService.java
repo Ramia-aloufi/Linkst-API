@@ -15,17 +15,15 @@ public class CloudinaryService {
     @Autowired
     private Cloudinary cloudinary;
 
-
-        public Map<String, String> uploadFile(MultipartFile file) throws IOException {
+    public Map<String, String> uploadFile(MultipartFile file) throws IOException {
         var uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
 
         String url = uploadResult.get("secure_url").toString();
         String resourceType = uploadResult.get("resource_type").toString(); // "image", "video"
 
         return Map.of(
-            "url", url,
-            "type", resourceType
-        );
+                "url", url,
+                "type", resourceType);
     }
 
 }
