@@ -12,7 +12,7 @@ import com.example.social_media_app.model.entity.User;
 
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
     public List<Chat> findByUsersId(UUID userId);
-    @Query("select c from Chat c Where :user Member of c.users And :reqUser Member of c.users")
+    @Query("select c from Chat c Where :userId Member of c.users And :reqUserId Member of c.users")
     public Chat findChatByUsersId(@Param("userId") User userId,@Param("reqUserId") User reqUserId);
 
 }

@@ -11,7 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +30,10 @@ public class Chat {
     private String chatName;
     @ManyToMany
     private List<User> users = new ArrayList<>();
+
+    @OneToMany
+    private List<Message> messages = new ArrayList<>();
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
 }

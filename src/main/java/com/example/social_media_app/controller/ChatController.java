@@ -33,8 +33,9 @@ public class ChatController {
         User reqUser = userService.getUserById(userDetails.getId());
 
         User user2 = userService.getUserById(chatRequest.getUserId());
+        User user1 = userService.getUserById(reqUser.getId());
 
-        return chatService.createChat(reqUser, user2);
+        return chatService.createChat(user1, user2);
 
     }
 
