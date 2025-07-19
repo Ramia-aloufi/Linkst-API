@@ -34,7 +34,7 @@ public class AppConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/signup", "/auth/login", "/actuator/**").permitAll()// whitelist
+                        .requestMatchers("/auth/signup", "/auth/login", "/actuator/**","/ws/**").permitAll()// whitelist
 
                         .anyRequest().authenticated() // Protect all other routes
                 )
@@ -52,7 +52,7 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:5173")); // Allow all
+                config.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000", "http://localhost:5173")); // Allow all
                                                                                                            // origins
                 config.setAllowedMethods(Collections.singletonList("*")); // Allow all methods (GET, POST, etc.)
                 config.setAllowedHeaders(Collections.singletonList("*")); // Allow specific headers

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,12 @@ import com.example.social_media_app.model.PostSummaryDTO;
 import com.example.social_media_app.model.PostSummaryResponse;
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.model.response.PaginateResponse;
 import com.example.social_media_app.service.CloudinaryService;
 import com.example.social_media_app.service.interfaces.PostService;
 import com.example.social_media_app.service.interfaces.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/post")
@@ -83,10 +87,32 @@ public class PostController {
         post.setContent(content);
         return postService.createNewPost(post, userDetails.getId());
     }
+
     @GetMapping("/summaries")
-    public List<PostSummaryResponse> getPostSummaries(Authentication auth) throws Exception {
+    public PaginateResponse<List<PostSummaryResponse>> getPostSummaries(Authentication auth, 
+                                                     @RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "5") int size,
+                                                     HttpServletRequest request) 
+                                                     throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        return postService.getPostSummaries(userDetails.getId());
+        Page<List<PostSummaryResponse>>  posts = postService.getPostSummaries(userDetails.getId(), page, size);
+
+        String baseURL = request.getRequestURL().toString();
+        String hasNext = posts.hasNext() ? String.format("%s?page=%d&size=%d", baseURL,page + 1,size):null;
+        String hasPerv = posts.hasPrevious() ? String.format("%s?page=%d&size=%d", baseURL,page - 1,size):null;
+
+        var paginate = new PaginateResponse<List<PostSummaryResponse>>(
+            posts.getContent(),
+            posts.getNumber(),
+            posts.getTotalPages(),
+            posts.getTotalElements(),
+            posts.hasNext(),
+            posts.hasPrevious(),
+            hasNext,
+            hasPerv
+        );
+
+        return paginate;
     }
 
 }

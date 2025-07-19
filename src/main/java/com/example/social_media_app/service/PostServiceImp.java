@@ -5,6 +5,10 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.social_media_app.exception.UserException;
@@ -110,10 +114,12 @@ public class PostServiceImp implements PostService {
         return post;
     }
     @Override
-    public List<PostSummaryResponse> getPostSummaries(UUID userId) throws Exception {
+    public Page<List<PostSummaryResponse>> getPostSummaries(UUID userId,int page, int size) throws Exception {
                 User user = userService.getUserById(userId);
+               Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
-        return postRepository.findAllPostSummaries(user);
+
+        return postRepository.findAllPostSummaries(user,pageable);
     }
     @Transactional
     public PostLikeResponse toggleLike(UUID postId, UUID currentUser) throws Exception {
