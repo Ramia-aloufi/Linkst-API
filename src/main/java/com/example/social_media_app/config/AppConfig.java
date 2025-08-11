@@ -1,6 +1,5 @@
 package com.example.social_media_app.config;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 

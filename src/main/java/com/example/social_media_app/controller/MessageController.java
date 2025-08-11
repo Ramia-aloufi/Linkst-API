@@ -45,7 +45,7 @@ public class MessageController {
         MessageReq msg = new MessageReq();
         msg.setContent(content);
         if(image != null){
-        var uploadResult = cloudinaryService.uploadFile(image);
+        var uploadResult = cloudinaryService.uploadFile(image,"messages");
         msg.setImage(uploadResult.get("url"));
         }
 

@@ -79,7 +79,7 @@ public class PostController {
     public Post createPost(Authentication auth, @RequestParam("media") MultipartFile file,
             @RequestParam("caption") String caption, @RequestParam("content") String content) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        var uploadResult = cloudinaryService.uploadFile(file);
+        var uploadResult = cloudinaryService.uploadFile(file,"posts");
         Post post = new Post();
         post.setMedia(uploadResult.get("url"));
         post.setType(uploadResult.get("type"));

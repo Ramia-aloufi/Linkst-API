@@ -22,7 +22,7 @@ public class ReelsServiceImp implements ReelsService {
     private UserService userService;
 
     @Override
-    public Reels createReels(Reels reels, UUID userId) throws Exception {
+    public Reels createReels(String videoUrl, String title, UUID userId) throws Exception {
         // Get the user by ID
         User user = userService.getUserById(userId);
 
@@ -30,8 +30,8 @@ public class ReelsServiceImp implements ReelsService {
         // and set the properties
         Reels newReels = new Reels();
         newReels.setUser(user);
-        newReels.setVideoUrl(reels.getVideoUrl());
-        newReels.setTitle(reels.getTitle());
+        newReels.setVideoUrl(videoUrl);
+        newReels.setTitle(title);
 
         // Save the new Reels object to the database
         reelsRepository.save(newReels);

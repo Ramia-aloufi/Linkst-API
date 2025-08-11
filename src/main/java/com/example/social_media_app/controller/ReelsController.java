@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.social_media_app.model.entity.Reels;
 import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.service.CloudinaryService;
 import com.example.social_media_app.service.interfaces.ReelsService;
 
 @RestController
@@ -21,10 +24,15 @@ public class ReelsController {
     @Autowired
     private ReelsService reelsService;
 
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
     @PostMapping("/create")
-    public Reels createReels(Authentication auth, @RequestBody Reels reels) throws Exception {
+    public Reels createReels(Authentication auth, @RequestParam("videoUrl") MultipartFile file,@RequestParam("title") String title) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        Reels newReels = reelsService.createReels(reels, userDetails.getId());
+                var uploadResult = cloudinaryService.uploadFile(file,"reels");
+                String videoUrl = uploadResult.get("url").toString();
+        Reels newReels = reelsService.createReels(videoUrl, title, userDetails.getId());
         return newReels;
     }
 
