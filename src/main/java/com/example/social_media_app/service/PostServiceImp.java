@@ -11,9 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.social_media_app.exception.UserException;
 import com.example.social_media_app.model.PostLikeResponse;
-import com.example.social_media_app.model.PostSummaryDTO;
 import com.example.social_media_app.model.PostSummaryResponse;
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.entity.User;

@@ -8,11 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.social_media_app.config.JwtProvider;
+import com.example.social_media_app.model.entity.Profile;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.model.response.LoginRequest;
+import com.example.social_media_app.repository.ProfileRepository;
 import com.example.social_media_app.repository.UserRepository;
 import com.example.social_media_app.service.interfaces.AuthService;
+import com.example.social_media_app.service.interfaces.ProfileService;
 import com.example.social_media_app.service.interfaces.UserService;
 
 @Service
@@ -26,12 +29,22 @@ public class AuthServiceImp implements AuthService {
         PasswordEncoder passwordEncoder;
         @Autowired
         CustomUserDetailsService customUserDetailsService;
+        @Autowired
+        ProfileService profileService;
 
-        public String signUp(User user) {
+        public String signUp(User user)  {
                 // Check if the user already exists
                 if (userRepository.findUserByEmail(user.getEmail()).isPresent()) {
                         throw new RuntimeException("User already exists");
                 }
+                // Create empty/default profile
+                Profile profile = new Profile();
+                profile.setBio("");
+                profile.setLocation("");
+                profile.setWebsite("");
+                profile.setProfilePictureUrl(null);
+                profile.setHeaderImageUrl(null);
+
 
                 // Create a new user
                 User newUser = new User();
@@ -41,8 +54,14 @@ public class AuthServiceImp implements AuthService {
                 newUser.setLastName(user.getLastName());
                 newUser.setGender(user.getGender());
 
+                profile.setUser(newUser);
+                newUser.setProfile(profile);
+
                 // Save the user to the database
                 User savedUser = userRepository.save(newUser);
+                profileService.createProfile(profile);
+
+                
                 CustomUserDetails userDetails = new CustomUserDetails(savedUser.getId(), savedUser.getEmail(),
                                 savedUser.getPassword(), null);
 

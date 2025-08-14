@@ -6,12 +6,17 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -39,18 +44,22 @@ public class User {
     @Column(nullable = false, name = "password")
     @Size(min = 3, max = 20, message = "Password must be at least 3 characters long")
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Password must contain only alphanumeric characters")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(unique = true, nullable = false, name = "email")
     @Email(message = "Email should be valid")
     private String email;
-    @Pattern(regexp = "^(male|female)$", message ="gender required !")
+    @Pattern(regexp = "^(male|female)$", message = "gender required !")
     private String gender;
-    private List<UUID> followers = new ArrayList<>() ;
+    private List<UUID> followers = new ArrayList<>();
     private List<UUID> following = new ArrayList<>();
     @JsonIgnore
     @ManyToMany
     private List<Post> savedPosts = new ArrayList<>();
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Profile profile;
 
     @Transient
     public String getFullName() {

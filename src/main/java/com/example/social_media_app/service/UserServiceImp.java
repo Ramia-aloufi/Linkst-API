@@ -58,7 +58,6 @@ public class UserServiceImp implements UserService {
     public void deleteUser(UUID id) {
         userRepository.deleteById(id);
     }
-
     @Transactional
     public User followUser(UUID userId, UUID followUserId) throws UserException {
         User user1 = getUserById(userId);

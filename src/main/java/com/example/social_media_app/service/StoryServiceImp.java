@@ -24,7 +24,8 @@ public class StoryServiceImp implements StoryService {
         User user = userService.getUserById(userId);
         Story newStory = new Story();
         newStory.setCaption(story.getCaption());
-        newStory.setImageUrl(story.getImageUrl());
+        newStory.setMedia(story.getMedia());
+        newStory.setMediaType(story.getMediaType());
         newStory.setUser(user);
         storyRepository.save(newStory);
         return newStory;

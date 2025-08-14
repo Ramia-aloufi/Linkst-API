@@ -28,19 +28,19 @@ public class Story {
     private UUID id;
     @NotBlank(message = "Caption is required")
     private String caption;
-    @NotBlank(message = "Image URL is required")
-    @Column(nullable = false, name = "image_url")
-    private String imageUrl;
+    @NotBlank(message = "Media is required")
+    @Column(nullable = false, name = "media")
+    private String media;
+    @NotBlank(message = "Media type is required")
+    @Column(nullable = false, name = "media_type")
+    private String mediaType;
     @NotNull(message = "Story must be associated with a user")
     @ManyToOne
     private User user;
     private LocalDateTime createdAt = LocalDateTime.now();
 
-           @PrePersist
+    @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
 }
-
-
