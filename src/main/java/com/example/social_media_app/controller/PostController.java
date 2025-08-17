@@ -76,41 +76,48 @@ public class PostController {
 
     @PostMapping(value = "/create", consumes = "multipart/form-data")
 
-    public Post createPost(Authentication auth, @RequestParam("media") MultipartFile file,
-            @RequestParam("caption") String caption, @RequestParam("content") String content) throws Exception {
+    public Post createPost(Authentication auth, @RequestParam(value = "media", required = false) MultipartFile file,
+            @RequestParam("content") String content) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        var uploadResult = cloudinaryService.uploadFile(file,"posts");
         Post post = new Post();
-        post.setMedia(uploadResult.get("url"));
-        post.setType(uploadResult.get("type"));
-        post.setCaption(caption);
         post.setContent(content);
+        post.setCaption(null);
+        if (file != null && !file.isEmpty()) {
+            var uploadResult = cloudinaryService.uploadFile(file, "posts");
+            post.setMedia(uploadResult.get("url"));
+            post.setType(uploadResult.get("type"));
+        } else {
+            post.setMedia(null);
+            post.setType(null);
+            post.setCaption(null);
+
+        }
+
         return postService.createNewPost(post, userDetails.getId());
     }
 
     @GetMapping("/summaries")
-    public PaginateResponse<List<PostSummaryResponse>> getPostSummaries(Authentication auth, 
-                                                     @RequestParam(defaultValue = "0") int page,
-                                                     @RequestParam(defaultValue = "5") int size,
-                                                     HttpServletRequest request) 
-                                                     throws Exception {
+    public PaginateResponse<List<PostSummaryResponse>> getPostSummaries(Authentication auth,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            HttpServletRequest request)
+            throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        Page<List<PostSummaryResponse>>  posts = postService.getPostSummaries(userDetails.getId(), page, size);
+        Page<List<PostSummaryResponse>> posts = postService.getPostSummaries(userDetails.getId(), page, size);
 
         String baseURL = request.getRequestURL().toString();
-        String hasNext = posts.hasNext() ? String.format("%s?page=%d&size=%d", baseURL,page + 1,size):null;
-        String hasPerv = posts.hasPrevious() ? String.format("%s?page=%d&size=%d", baseURL,page - 1,size):null;
+        String hasNext = posts.hasNext() ? String.format("%s?page=%d&size=%d", baseURL, page + 1, size) : null;
+        String hasPerv = posts.hasPrevious() ? String.format("%s?page=%d&size=%d", baseURL, page - 1, size) : null;
 
         var paginate = new PaginateResponse<List<PostSummaryResponse>>(
-            posts.getContent(),
-            posts.getNumber(),
-            posts.getTotalPages(),
-            posts.getTotalElements(),
-            posts.hasNext(),
-            posts.hasPrevious(),
-            hasNext,
-            hasPerv
-        );
+                posts.getContent(),
+                posts.getNumber(),
+                posts.getTotalPages(),
+                posts.getTotalElements(),
+                posts.hasNext(),
+                posts.hasPrevious(),
+                hasNext,
+                hasPerv);
 
         return paginate;
     }

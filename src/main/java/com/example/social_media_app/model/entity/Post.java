@@ -39,7 +39,7 @@ public class Post {
     @UuidGenerator
     private UUID id;
     @NotBlank(message = "Caption cannot be blank")
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Size(max = 255, message = "Caption must not exceed 255 characters")
     private String caption;
     @ManyToOne
@@ -51,7 +51,9 @@ public class Post {
     @NotBlank(message = "Content cannot be blank")
     @Column(nullable = false)
     private String content;
+    @Column(nullable = true)
     private String media;
+    @Column(nullable = true)
     private String type;
     @OneToMany
     @JsonIgnoreProperties({"firstName", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender"})

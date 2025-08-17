@@ -29,21 +29,23 @@ List<Post> findPostByUserId (UUID userId);
 //     FROM Post p
 //     """)
 @Query("""
-    SELECT new com.example.social_media_app.model.PostSummaryResponse(
-        p.id,
-        p.caption,
-        p.content,
-        p.media,
-        p.type,
-        p.createdAt,
-        SIZE(p.likes),
-        SIZE(p.comments),
-        CASE WHEN :user MEMBER OF p.likes THEN true ELSE false END,
-        p.user.id,
-        CONCAT(p.user.firstName, ' ', p.user.lastName)
-    )
-    FROM Post p
-    ORDER BY p.createdAt DESC
+SELECT new com.example.social_media_app.model.PostSummaryResponse(
+    p.id,
+    p.caption,
+    p.content,
+    p.media,
+    p.type,
+    p.createdAt,
+    SIZE(p.likes),
+    SIZE(p.comments),
+    CASE WHEN :user MEMBER OF p.likes THEN true ELSE false END,
+    p.user.id,
+    CONCAT(p.user.firstName, ' ', p.user.lastName),
+    pf.profilePictureUrl
+)
+FROM Post p
+LEFT JOIN p.user.profile pf
+ORDER BY p.createdAt DESC
 """)
 Page<List<PostSummaryResponse>> findAllPostSummaries(@Param("user") User currentUser,Pageable pageable);
 

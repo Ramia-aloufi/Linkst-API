@@ -27,7 +27,7 @@ public class PostSummaryResponse {
 
     public PostSummaryResponse(UUID id, String caption, String content, String media, String type,
                            LocalDateTime createdAt, int likeCount, int commentCount,
-                           boolean likedByCurrentUser, UUID userId, String fullName) {
+                           boolean likedByCurrentUser, UUID userId, String fullName, String profilePicture) {
     this.id = id;
     this.caption = caption;
     this.content = content;
@@ -37,7 +37,7 @@ public class PostSummaryResponse {
     this.likeCount = likeCount;
     this.commentCount = commentCount;
     this.likedByCurrentUser = likedByCurrentUser;
-    this.user = new UserSummary(userId, fullName);
+    this.user = new UserSummary(userId, fullName, profilePicture);
 }
 
 
@@ -48,5 +48,6 @@ public class PostSummaryResponse {
     public static class UserSummary {
         private UUID userId;
         private String fullName;
+        private String profilePictureUrl;
     }
 }
