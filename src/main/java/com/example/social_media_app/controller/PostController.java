@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.social_media_app.model.PostLikeResponse;
-import com.example.social_media_app.model.PostSummaryDTO;
 import com.example.social_media_app.model.PostSummaryResponse;
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.response.CustomUserDetails;

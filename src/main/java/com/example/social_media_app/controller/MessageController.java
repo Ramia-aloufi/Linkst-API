@@ -27,7 +27,6 @@ import com.example.social_media_app.service.interfaces.UserService;
 @RequestMapping("/message")
 public class MessageController {
 
-
     @Autowired
     MessageService messageService;
 
@@ -39,24 +38,24 @@ public class MessageController {
 
     @PostMapping("/chat/{chatId}")
     public Message createMessage(@RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam("content") String content,@PathVariable UUID chatId,Authentication auth) throws UserException, Exception{
+            @RequestParam("content") String content, @PathVariable UUID chatId, Authentication auth)
+            throws UserException, Exception {
         CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
         User us = userService.getUserById(user.getId());
         MessageReq msg = new MessageReq();
         msg.setContent(content);
-        if(image != null){
-        var uploadResult = cloudinaryService.uploadFile(image,"messages");
-        msg.setImage(uploadResult.get("url"));
+        if (image != null) {
+            var uploadResult = cloudinaryService.uploadFile(image, "messages");
+            msg.setImage(uploadResult.get("url"));
         }
 
-        Message message = messageService.createMessage(us, chatId,msg);
+        Message message = messageService.createMessage(us, chatId, msg);
         return message;
     }
+
     @GetMapping("/chat/{chatId}")
-    public List<Message> findChatMessages(@PathVariable UUID chatId) throws UserException{        
+    public List<Message> findChatMessages(@PathVariable UUID chatId) throws UserException {
         return messageService.geChatMessages(chatId);
     }
 
-
-    
 }

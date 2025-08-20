@@ -12,4 +12,22 @@ public interface UserRepository extends JpaRepository<User, UUID> {
    Optional<User> findUserByEmail(String email);
    @Query("SELECT u FROM User u WHERE u.firstName LIKE %:query% OR u.lastName LIKE %:query% OR u.email LIKE %:query%")
    List<User> searchUsers(String query);
+
+@Query("""
+    SELECT u
+    FROM User u
+    JOIN u.stories s
+    GROUP BY u
+    ORDER BY MAX(s.createdAt) DESC
+    LIMIT 5
+""")
+    List<User> findUsersWhoLatestAddStory();
+
+
+
+
+
+
+
+
 }

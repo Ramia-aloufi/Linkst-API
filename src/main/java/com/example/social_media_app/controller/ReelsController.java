@@ -6,7 +6,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +27,11 @@ public class ReelsController {
     private CloudinaryService cloudinaryService;
 
     @PostMapping("/create")
-    public Reels createReels(Authentication auth, @RequestParam("videoUrl") MultipartFile file,@RequestParam("title") String title) throws Exception {
+    public Reels createReels(Authentication auth, @RequestParam("videoUrl") MultipartFile file,
+            @RequestParam("title") String title) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-                var uploadResult = cloudinaryService.uploadFile(file,"reels");
-                String videoUrl = uploadResult.get("url").toString();
+        var uploadResult = cloudinaryService.uploadFile(file, "reels");
+        String videoUrl = uploadResult.get("url").toString();
         Reels newReels = reelsService.createReels(videoUrl, title, userDetails.getId());
         return newReels;
     }

@@ -1,6 +1,5 @@
 package com.example.social_media_app.service;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,7 @@ public class StoryServiceImp implements StoryService {
 
     }
 
-    public List<Story> getAllStoriesByUserId(UUID userId) throws Exception {
-        return storyRepository.findByUserId(userId);
-    }
+
+
 
 }

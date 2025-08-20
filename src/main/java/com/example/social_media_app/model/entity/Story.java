@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -36,7 +38,9 @@ public class Story {
     private String mediaType;
     @NotNull(message = "Story must be associated with a user")
     @ManyToOne
+    @JsonBackReference
     private User user;
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @PrePersist

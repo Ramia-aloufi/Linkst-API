@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -45,6 +46,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "Post must be associated with a user")
+    @JsonBackReference
     @JsonIgnoreProperties({"email","password", "createdAt", "updatedAt","followers", "following","gender"})
     private User user;
     @Size(max = 5000, message = "Content must not exceed 5000 characters")
@@ -56,7 +58,8 @@ public class Post {
     @Column(nullable = true)
     private String type;
     @OneToMany
-    @JsonIgnoreProperties({"firstName", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender"})
+
+    @JsonIgnoreProperties({"firstName", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender","savedPosts","profile","stories","posts"})
     private List<User> likes = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

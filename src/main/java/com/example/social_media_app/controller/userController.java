@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.model.response.UserLatestStoryDTO;
 import com.example.social_media_app.service.interfaces.UserService;
 
 import jakarta.validation.Valid;
@@ -74,6 +75,11 @@ public class userController {
     public Object getUserProfile(Authentication auth) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return userService.getUserById(userDetails.getId());
+    }
+
+    @GetMapping("/latest-stories")
+    public List<UserLatestStoryDTO> getUsersWithLatestStory() {
+        return userService.getUsersWithLatestStory();
     }
 
 }

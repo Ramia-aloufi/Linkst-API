@@ -11,5 +11,11 @@ public interface StoryRepository extends JpaRepository<Story, UUID> {
 
     public List<Story> findByUserId(UUID userId);
 
+    public List<Story> findTop5ByOrderByCreatedAtDesc();
+
+
+
+
+
 
 }

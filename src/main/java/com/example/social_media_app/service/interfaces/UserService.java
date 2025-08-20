@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import com.example.social_media_app.exception.UserException;
 import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.UserLatestStoryDTO;
 
 public interface UserService {
-    // Define the methods that will be implemented in the UserServiceImp class
     User register(User user);
 
     User getUserById(UUID id) throws UserException;
@@ -23,5 +23,7 @@ public interface UserService {
     User followUser(UUID userId, UUID followUserId) throws UserException;
 
     List<User> searchUsers(String query);
+
+    List<UserLatestStoryDTO> getUsersWithLatestStory();
 
 }

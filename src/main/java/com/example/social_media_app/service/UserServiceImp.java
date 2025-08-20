@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.social_media_app.exception.UserException;
 import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.UserLatestStoryDTO;
 import com.example.social_media_app.repository.UserRepository;
 import com.example.social_media_app.service.interfaces.UserService;
 
@@ -75,5 +76,19 @@ public class UserServiceImp implements UserService {
 
     public List<User> searchUsers(String query) {
         return userRepository.searchUsers(query);
+    }
+
+    public List<UserLatestStoryDTO> getUsersWithLatestStory() {
+        List<User> users = userRepository.findUsersWhoLatestAddStory();
+        List<UserLatestStoryDTO> userLatestStoryDTO = users.stream()
+                .map(user -> new UserLatestStoryDTO(
+                        user.getId(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                       (user.getProfile() != null) ? user.getProfile().getProfilePictureUrl() : "",
+                        user.getStories()
+                ))
+                .toList();
+        return userLatestStoryDTO;
     }
 }

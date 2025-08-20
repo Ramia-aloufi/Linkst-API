@@ -17,8 +17,6 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-
-
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest loginRequest) {
         String auth = authService.login(loginRequest);

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +29,6 @@ public class Profile {
     private String profilePictureUrl;
     private String headerImageUrl;
     @OneToOne(mappedBy = "profile")
-    @JsonManagedReference
+    @JsonBackReference
 private User user;
 }

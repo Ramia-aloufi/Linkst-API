@@ -12,7 +12,6 @@ import com.example.social_media_app.model.entity.Profile;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.model.response.LoginRequest;
-import com.example.social_media_app.repository.ProfileRepository;
 import com.example.social_media_app.repository.UserRepository;
 import com.example.social_media_app.service.interfaces.AuthService;
 import com.example.social_media_app.service.interfaces.ProfileService;
