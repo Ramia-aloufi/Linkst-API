@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,6 +33,7 @@ public class Reels {
     @Column(nullable = false, name = "video_url")
     String videoUrl;
     @ManyToOne
+    @JsonIgnoreProperties({"reels", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
     User user;
     private LocalDateTime createdAt = LocalDateTime.now();
 

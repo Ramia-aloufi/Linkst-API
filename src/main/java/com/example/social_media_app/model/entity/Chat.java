@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +31,8 @@ public class Chat {
     @Column(name = "chat_name", nullable = true)
     private String chatName;
     @ManyToMany
+        @JsonIgnoreProperties({"reels", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
+
     private List<User> users = new ArrayList<>();
 
     @OneToMany

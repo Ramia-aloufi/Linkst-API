@@ -36,9 +36,18 @@ public class ChatServiceImp implements ChatService {
     }
 
     public List<Chat> getAllChatsByUserId(UUID userId) throws Exception {
-        List<Chat> userChat = chatRepository.findByUsersId(userId);
-        if (userChat == null) {
+        List<Chat> userChat = chatRepository.findAllByUserId(userId);
+        if (userChat == null || userChat.isEmpty()) {
             throw new Exception("No chats found for this user");
+        }
+                // remove the current user from chat.users
+        for (Chat chat : userChat) {
+            chat.setUsers(
+                chat.getUsers()
+                    .stream()
+                    .filter(u -> !u.getId().equals(userId))
+                    .toList()
+            );
         }
         return userChat;
     }

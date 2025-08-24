@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,6 +28,7 @@ public class Message {
     private String content ;
     private String image;
     @ManyToOne
+            @JsonIgnoreProperties({"reels", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
     private User user;
     @JsonIgnore
     @ManyToOne
