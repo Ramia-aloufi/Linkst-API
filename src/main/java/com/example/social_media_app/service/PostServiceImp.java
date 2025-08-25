@@ -1,6 +1,7 @@
 package com.example.social_media_app.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,11 @@ public class PostServiceImp implements PostService {
     }
 
     public Post findPostById(UUID postId) {
-        return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+
+        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+
+        return post;
+
     }
 
     public List<Post> findAllPost() {

@@ -21,6 +21,7 @@ import com.example.social_media_app.model.response.UserLatestStoryDTO;
 import com.example.social_media_app.service.interfaces.UserService;
 
 import jakarta.validation.Valid;
+import jakarta.websocket.MessageHandler.Partial;
 
 @RestController
 @RequestMapping("/user")
@@ -29,7 +30,8 @@ public class userController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
+
+            @GetMapping("/{id}")
     public User getUser(@PathVariable UUID id) throws Exception {
         return userService.getUserById(id);
     }
@@ -55,9 +57,13 @@ public class userController {
     }
 
     @PutMapping()
-    public User updateUser(Authentication auth, @RequestBody @Valid User user) throws Exception {
+    public User updateUser(Authentication auth,@RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        return userService.updateUser(userDetails.getId(), user);
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+            return userService.updateUser(userDetails.getId(), user);
     }
 
     @PutMapping("/follow/{userId}")
@@ -80,6 +86,10 @@ public class userController {
     @GetMapping("/latest-stories")
     public List<UserLatestStoryDTO> getUsersWithLatestStory() {
         return userService.getUsersWithLatestStory();
+    }
+    @GetMapping("/fullname/{fullName}")
+    public User getUserByFullName(@PathVariable String fullName) throws Exception {
+        return userService.getUserByFullName(fullName);
     }
 
 }

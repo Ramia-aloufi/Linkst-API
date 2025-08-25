@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.social_media_app.model.PostLikeResponse;
 import com.example.social_media_app.model.PostSummaryResponse;
+import com.example.social_media_app.model.PostSummaryResponse.UserSummary;
 import com.example.social_media_app.model.entity.Post;
+import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.model.response.PaginateResponse;
 import com.example.social_media_app.service.CloudinaryService;
@@ -63,8 +65,32 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Post getPostById(@PathVariable UUID postId) {
-        return postService.findPostById(postId);
+    public PostSummaryResponse getPostById(@PathVariable UUID postId, Authentication auth) throws Exception {
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+
+        Post post = postService.findPostById(postId);
+        User user = userService.getUserByPostId(postId);
+        User me = userService.getUserById(userDetails.getId());
+
+        UserSummary userSummary = new UserSummary();
+        userSummary.setUserId(user.getId());
+        userSummary.setFullName(user.getFullName());
+        userSummary.setProfilePictureUrl(user.getProfile() != null ? user.getProfile().getProfilePictureUrl() : null);
+
+
+        PostSummaryResponse postSummary = new PostSummaryResponse();
+        postSummary.setId(post.getId());
+        postSummary.setCaption(post.getCaption());
+        postSummary.setMedia(post.getMedia());
+        postSummary.setCommentCount(post.getComments().size());
+        postSummary.setType(post.getType());
+        postSummary.setLikeCount(post.getLikes().size());
+        postSummary.setLikedByCurrentUser(post.getLikes().contains(me) || false);
+        postSummary.setUser(userSummary);
+        postSummary.setContent(post.getContent());
+        postSummary.setCreatedAt(post.getCreatedAt());
+
+        return postSummary;
     }
 
     @DeleteMapping("/delete/{postId}")

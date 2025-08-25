@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.social_media_app.model.CommentDto;
+import com.example.social_media_app.model.PostSummaryResponse;
 import com.example.social_media_app.model.entity.Comment;
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.entity.User;
@@ -76,7 +77,12 @@ public class CommentServiceImp implements CommentService {
     }
 
     public List<CommentDto> getCommentByPostId(UUID postId) throws Exception {
-        return commentRepository.findByPostId(postId);
+        System.out.println("Fetching comments for Post ID: " + postId);
+        List<CommentDto> commentDtos = commentRepository.findByPostId(postId);
+        System.out.println("Fetched comments: " + commentDtos.stream().map(dto -> {
+            return "Comment ID: " + dto.getId() + ", Comment: " + dto.getComment() + ", User: " + dto.getUser();
+        }).toList());
+        return commentDtos;
     }
     
 

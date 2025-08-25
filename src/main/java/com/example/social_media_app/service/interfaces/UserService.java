@@ -7,6 +7,8 @@ import com.example.social_media_app.exception.UserException;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.UserLatestStoryDTO;
 
+
+
 public interface UserService {
     User register(User user);
 
@@ -25,5 +27,7 @@ public interface UserService {
     List<User> searchUsers(String query);
 
     List<UserLatestStoryDTO> getUsersWithLatestStory();
+    User getUserByFullName(String fullName) throws UserException;
+    User getUserByPostId(UUID postId) throws UserException;
 
 }

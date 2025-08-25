@@ -1,6 +1,7 @@
 package com.example.social_media_app.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.social_media_app.model.entity.User;
 
@@ -23,6 +24,13 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 """)
     List<User> findUsersWhoLatestAddStory();
 
+@Query("SELECT u FROM User u WHERE CONCAT(u.firstName, '_', u.lastName) = :fullName")
+Optional<User> findByFullName(@Param("fullName") String fullName);
+
+
+
+@Query("SELECT p.user FROM Post p WHERE p.id = :postId")
+Optional<User> findUserByPostId(@Param("postId") UUID postId);
 
 
 

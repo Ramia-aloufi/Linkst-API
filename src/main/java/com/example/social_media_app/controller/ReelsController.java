@@ -1,10 +1,12 @@
 package com.example.social_media_app.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.social_media_app.model.entity.Reels;
 import com.example.social_media_app.model.response.CustomUserDetails;
+import com.example.social_media_app.model.response.ReelsUserDTO;
 import com.example.social_media_app.service.CloudinaryService;
 import com.example.social_media_app.service.interfaces.ReelsService;
 
@@ -42,10 +45,10 @@ public class ReelsController {
         return reelsList;
     }
 
-    @GetMapping("/user")
-    public List<Reels> getReelsByUserId(Authentication auth) throws Exception {
-        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-        List<Reels> reelsList = reelsService.getReelsByUserId(userDetails.getId());
+    @GetMapping("/user/{id}")
+    public List<ReelsUserDTO> getReelsByUserId(@PathVariable UUID id) throws Exception {
+        System.out.println(id);
+        List<ReelsUserDTO> reelsList = reelsService.getReelsByUserId(id);
         return reelsList;
     }
 }

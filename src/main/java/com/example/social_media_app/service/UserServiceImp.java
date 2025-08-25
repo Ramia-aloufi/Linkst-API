@@ -47,11 +47,21 @@ public class UserServiceImp implements UserService {
     }
 
     public User updateUser(UUID id, User user) throws UserException {
+    User userUpdated = ((User) user); // unwrap
+
         User existingUser = getUserById(id);
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
+        if (userUpdated.getFirstName() != null) {
+        existingUser.setFirstName(userUpdated.getFirstName());
+        } 
+        if (userUpdated.getLastName() != null) {
+        existingUser.setLastName(userUpdated.getLastName());
+        }
+        if (userUpdated.getEmail() != null) {
+        existingUser.setEmail(userUpdated.getEmail());
+        }
+        if (userUpdated.getPassword() != null) {
+        existingUser.setPassword(userUpdated.getPassword());
+        }
         userRepository.save(existingUser);
         return existingUser;
     }
@@ -90,5 +100,15 @@ public class UserServiceImp implements UserService {
                 ))
                 .toList();
         return userLatestStoryDTO;
+    }
+
+    @Override
+    public User getUserByFullName(String fullName) throws UserException {
+        return userRepository.findByFullName(fullName).orElseThrow(() -> new UserException("User not found"));
+    }
+
+    @Override
+    public User getUserByPostId(UUID postId) throws UserException {
+        return userRepository.findUserByPostId(postId).orElseThrow(() -> new UserException("User not found"));
     }
 }

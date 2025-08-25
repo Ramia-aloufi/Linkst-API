@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.social_media_app.model.entity.Reels;
 import com.example.social_media_app.model.entity.User;
+import com.example.social_media_app.model.response.ReelsUserDTO;
 import com.example.social_media_app.repository.ReelsRepository;
 import com.example.social_media_app.service.interfaces.ReelsService;
 import com.example.social_media_app.service.interfaces.UserService;
@@ -47,9 +48,9 @@ public class ReelsServiceImp implements ReelsService {
     }
 
     @Override
-    public List<Reels> getReelsByUserId(UUID userId) throws Exception {
+    public List<ReelsUserDTO> getReelsByUserId(UUID userId) throws Exception {
         // Fetch reels by user ID
-        List<Reels> reelsList = reelsRepository.findByUserId(userId);
+        List<ReelsUserDTO> reelsList = reelsRepository.findByUserId(userId);
         return reelsList;
     }
 
