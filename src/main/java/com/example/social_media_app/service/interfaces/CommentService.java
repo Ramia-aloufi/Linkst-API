@@ -11,5 +11,7 @@ public interface CommentService {
     public List<CommentDto> getCommentByPostId(UUID postId) throws Exception;
     public Comment getCommentById(UUID commentId) throws Exception;
     public Comment likeComment(UUID commentId, UUID userId) throws Exception;
+    public String deleteComment(UUID id) throws Exception ;
+
 
 }

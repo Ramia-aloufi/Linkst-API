@@ -12,4 +12,5 @@ public interface ReelsService {
     public List<Reels> getAllReels() throws Exception;
 
     public List<ReelsUserDTO> getReelsByUserId(UUID userId) throws Exception;
+    String deleteReel(UUID id) throws Exception ;
 }

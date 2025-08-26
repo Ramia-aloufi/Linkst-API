@@ -54,4 +54,9 @@ public class ReelsServiceImp implements ReelsService {
         return reelsList;
     }
 
+    public String deleteReel(UUID id) throws Exception {
+        reelsRepository.deleteById(id);
+        return "Deleted Successfully!";
+    }
+
 }

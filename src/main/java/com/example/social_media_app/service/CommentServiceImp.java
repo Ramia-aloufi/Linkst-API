@@ -84,6 +84,12 @@ public class CommentServiceImp implements CommentService {
         }).toList());
         return commentDtos;
     }
+
+    @Override
+    public String deleteComment(UUID id) throws Exception {
+        commentRepository.deleteById(id);
+        return "Commit deleted Successfully";
+    }
     
 
 }

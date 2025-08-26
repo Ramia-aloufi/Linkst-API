@@ -128,8 +128,6 @@ public class PostServiceImp implements PostService {
     Post post = postRepository.findById(postId)
         .orElseThrow(() -> new RuntimeException("Post not found"));
    User user = userService.getUserById(currentUser);
-
-
     boolean liked;
     if (post.getLikes().contains(user)) {
         post.getLikes().remove(user);

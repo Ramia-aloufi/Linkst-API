@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,5 +57,10 @@ public class CommentController {
     public List<CommentDto> getCommentByPostId(@PathVariable UUID postId) throws Exception {
         return commentService.getCommentByPostId(postId);
     }
+        @DeleteMapping("/delete/{id}")
+        public String deleteReelsById(@PathVariable UUID id) throws Exception {
+            return commentService.deleteComment(id);
+
+        }
 
 }
