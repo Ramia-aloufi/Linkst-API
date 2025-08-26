@@ -71,17 +71,18 @@ public class UserServiceImp implements UserService {
     }
     @Transactional
     public User followUser(UUID userId, UUID followUserId) throws UserException {
-        User user1 = getUserById(userId);
-        User user2 = getUserById(followUserId);
-        if (!user1.getFollowers().isEmpty() || user1.getFollowers().contains(user2.getId())) {
-            throw new UserException("You are already following this user");
+        User me = getUserById(userId);
+        User followingUser = getUserById(followUserId);
+        if (!followingUser.getFollowers().isEmpty() || followingUser.getFollowers().contains(me.getId())) {
+        me.getFollowing().remove(followingUser.getId());
+        followingUser.getFollowers().remove(me.getId());
+        }else{
+        me.getFollowing().add(followingUser.getId());
+        followingUser.getFollowers().add(me.getId());
         }
-
-        user1.getFollowing().add(user2.getId());
-        user2.getFollowers().add(user1.getId());
-        userRepository.save(user1);
-        userRepository.save(user2);
-        return user1;
+        userRepository.save(me);
+        userRepository.save(followingUser);
+        return me;
     }
 
     public List<User> searchUsers(String query) {
