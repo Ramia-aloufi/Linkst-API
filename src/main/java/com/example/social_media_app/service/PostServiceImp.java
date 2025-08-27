@@ -115,27 +115,29 @@ public class PostServiceImp implements PostService {
         userRepository.save(user);
         return post;
     }
+
     @Override
-    public Page<List<PostSummaryResponse>> getPostSummaries(UUID userId,int page, int size) throws Exception {
-                User user = userService.getUserById(userId);
-               Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+    public Page<List<PostSummaryResponse>> getPostSummaries(UUID userId, int page, int size) throws Exception {
+        User user = userService.getUserById(userId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
-
-        return postRepository.findAllPostSummaries(user,pageable);
+        return postRepository.findAllPostSummaries(user, pageable);
     }
+
     @Transactional
     public PostLikeResponse toggleLike(UUID postId, UUID currentUser) throws Exception {
-    Post post = postRepository.findById(postId)
-        .orElseThrow(() -> new RuntimeException("Post not found"));
-   User user = userService.getUserById(currentUser);
-    boolean liked;
-    if (post.getLikes().contains(user)) {
-        post.getLikes().remove(user);
-        liked = false;
-    } else {
-        post.getLikes().add(user);
-        liked = true;
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        User user = userService.getUserById(currentUser);
+        boolean liked;
+        if (post.getLikes().contains(user)) {
+            post.getLikes().remove(user);
+            liked = false;
+        } else {
+            post.getLikes().add(user);
+            liked = true;
+        }
+        System.out.println("Post ID: " + post.getId() + ", Liked: " + liked + ", User: " + user.getId());
+        return new PostLikeResponse(post.getId(), liked, post.getLikes().size());
     }
-    return new PostLikeResponse(post.getId(), liked, post.getLikes().size());
-}
 }

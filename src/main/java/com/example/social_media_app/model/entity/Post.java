@@ -16,11 +16,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -57,8 +60,15 @@ public class Post {
     private String media;
     @Column(nullable = true)
     private String type;
-    @OneToMany
-
+    @ManyToMany
+    @JoinTable(
+    name = "posts_likes",
+    joinColumns = @JoinColumn(name = "post_id"),
+    inverseJoinColumns = @JoinColumn(name = "likes_id"),
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"post_id", "likes_id"})
+    }
+)
     @JsonIgnoreProperties({"firstName", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender","savedPosts","profile","stories","posts"})
     private List<User> likes = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
