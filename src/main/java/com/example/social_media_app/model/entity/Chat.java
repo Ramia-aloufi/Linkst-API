@@ -31,7 +31,7 @@ public class Chat {
     @Column(name = "chat_name", nullable = true)
     private String chatName;
     @ManyToMany
-        @JsonIgnoreProperties({"reels", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
+        @JsonIgnoreProperties({"reels","projects", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
 
     private List<User> users = new ArrayList<>();
 

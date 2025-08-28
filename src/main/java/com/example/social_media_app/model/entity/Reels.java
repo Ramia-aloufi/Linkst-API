@@ -33,7 +33,7 @@ public class Reels {
     @Column(nullable = false, name = "video_url")
     String videoUrl;
     @ManyToOne
-    @JsonIgnoreProperties({"reels", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
+    @JsonIgnoreProperties({"reels", "password","projects", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
     User user;
     private LocalDateTime createdAt = LocalDateTime.now();
 

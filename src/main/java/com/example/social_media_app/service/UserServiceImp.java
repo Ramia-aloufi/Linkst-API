@@ -86,6 +86,10 @@ public class UserServiceImp implements UserService {
     }
 
     public List<User> searchUsers(String query) {
+        System.out.println(query);
+        if(query == null || query.isEmpty()){
+            return List.of();
+        }
         return userRepository.searchUsers(query);
     }
 

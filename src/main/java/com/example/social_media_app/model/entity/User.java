@@ -67,6 +67,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Post> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
     @Transient
     public String getFullName() {
         return firstName + "_" + lastName;

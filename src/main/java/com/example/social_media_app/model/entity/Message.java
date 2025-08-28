@@ -28,7 +28,7 @@ public class Message {
     private String content ;
     private String image;
     @ManyToOne
-            @JsonIgnoreProperties({"reels", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
+            @JsonIgnoreProperties({"reels", "password", "email", "createdAt","projects","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
     private User user;
     @JsonIgnore
     @ManyToOne

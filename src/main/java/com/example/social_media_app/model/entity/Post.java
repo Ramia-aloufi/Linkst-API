@@ -69,7 +69,7 @@ public class Post {
         @UniqueConstraint(columnNames = {"post_id", "likes_id"})
     }
 )
-    @JsonIgnoreProperties({"firstName", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender","savedPosts","profile","stories","posts"})
+    @JsonIgnoreProperties({"firstName","projects", "lastName", "email", "username", "password", "createdAt", "updatedAt","followers", "following","gender","savedPosts","profile","stories","posts"})
     private List<User> likes = new ArrayList<>();
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
