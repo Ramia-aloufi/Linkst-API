@@ -12,8 +12,16 @@ import com.example.social_media_app.model.response.ReelsUserDTO;
 
 public interface ReelsRepository extends JpaRepository<Reels, UUID> {
     @Query("""
-        SELECT r FROM Reels r
-        WHERE r.user.id = :userId
-        ORDER BY r.createdAt DESC
-    """)
-    List<ReelsUserDTO> findByUserId(@Param("userId") UUID userId);}
+                SELECT r FROM Reels r
+                WHERE r.user.id = :userId
+                ORDER BY r.createdAt DESC
+            """)
+    List<ReelsUserDTO> findByUserId(@Param("userId") UUID userId);
+
+    @Query("""
+                SELECT r FROM Reels r
+                ORDER BY r.createdAt DESC
+            """)
+    List<ReelsUserDTO> getAllReelsSorted();
+
+}

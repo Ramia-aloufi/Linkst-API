@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -30,14 +31,11 @@ public class Chat {
     private String chatImage;
     @Column(name = "chat_name", nullable = true)
     private String chatName;
-    @ManyToMany
-        @JsonIgnoreProperties({"reels","projects", "password", "email", "createdAt","followers","following","comments","likes", "stories","posts","comments","gender","savedPosts"})
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({ "reels", "projects", "password", "email", "createdAt", "followers", "following", "comments",
+            "likes", "stories", "posts", "comments", "gender", "savedPosts" })
     private List<User> users = new ArrayList<>();
-
-    @OneToMany
+    @OneToMany(mappedBy = "chat")
     private List<Message> messages = new ArrayList<>();
-
     private LocalDateTime createdAt = LocalDateTime.now();
-
 }

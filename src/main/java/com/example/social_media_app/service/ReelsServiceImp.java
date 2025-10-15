@@ -42,9 +42,9 @@ public class ReelsServiceImp implements ReelsService {
     }
 
     @Override
-    public List<Reels> getAllReels() throws Exception {
+    public List<ReelsUserDTO> getAllReels() throws Exception {
         // Fetch all reels from the database
-        List<Reels> reelsList = reelsRepository.findAll(Sort.by(Sort.Direction.ASC, "createdAt"));
+        List<ReelsUserDTO> reelsList = reelsRepository.getAllReelsSorted();
         return reelsList;
     }
 

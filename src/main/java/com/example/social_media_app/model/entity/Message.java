@@ -33,7 +33,7 @@ public class Message {
     @JsonIgnore
     @ManyToOne
     private Chat chat ;
-    private LocalDateTime timestamp;
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     
     

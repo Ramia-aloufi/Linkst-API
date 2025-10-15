@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.social_media_app.model.ChatDTO;
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.ChatRequest;
@@ -40,7 +41,7 @@ public class ChatController {
     }
 
     @GetMapping("/all")
-    public List<Chat> getAllChatsByUserId(Authentication auth) throws Exception {
+    public List<ChatDTO> getAllChatsByUserId(Authentication auth) throws Exception {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         return chatService.getAllChatsByUserId(userDetails.getId());
     }

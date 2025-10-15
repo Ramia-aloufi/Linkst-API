@@ -9,5 +9,5 @@ import com.example.social_media_app.model.entity.Message;
 
 public interface MessageRepository extends JpaRepository<Message,UUID> {
     public List<Message> findByChatId(UUID chatId);
-    
+        
 }

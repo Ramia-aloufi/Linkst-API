@@ -41,8 +41,8 @@ public class ReelsController {
     }
 
     @GetMapping("/getAll")
-    public List<Reels> getAllReels() throws Exception {
-        List<Reels> reelsList = reelsService.getAllReels();
+    public List<ReelsUserDTO> getAllReels() throws Exception {
+        List<ReelsUserDTO> reelsList = reelsService.getAllReels();
         return reelsList;
     }
 
