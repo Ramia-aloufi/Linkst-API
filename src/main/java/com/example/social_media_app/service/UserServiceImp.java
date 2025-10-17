@@ -6,11 +6,12 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.social_media_app.exception.UserException;
+import com.example.social_media_app.model.dto.UserDto;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.UserLatestStoryDTO;
 import com.example.social_media_app.repository.UserRepository;
 import com.example.social_media_app.service.interfaces.UserService;
+import com.example.social_media_app.utils.exception.UserException;
 
 import jakarta.transaction.Transactional;
 
@@ -85,8 +86,7 @@ public class UserServiceImp implements UserService {
         return me;
     }
 
-    public List<User> searchUsers(String query) {
-        System.out.println(query);
+    public List<UserDto> searchUsers(String query) {
         if(query == null || query.isEmpty()){
             return List.of();
         }

@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.social_media_app.model.CommentDto;
+import com.example.social_media_app.model.dto.CommentDto;
 import com.example.social_media_app.model.entity.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment,UUID> {

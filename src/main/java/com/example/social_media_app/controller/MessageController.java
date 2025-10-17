@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.social_media_app.exception.UserException;
-import com.example.social_media_app.model.MessageDTO;
 import com.example.social_media_app.model.MessageReq;
+import com.example.social_media_app.model.dto.MessageDTO;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.service.CloudinaryService;
 import com.example.social_media_app.service.interfaces.MessageService;
 import com.example.social_media_app.service.interfaces.UserService;
+import com.example.social_media_app.utils.exception.UserException;
 
 @RestController
 @RequestMapping("/message")

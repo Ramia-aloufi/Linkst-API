@@ -1,4 +1,4 @@
-package com.example.social_media_app.model;
+package com.example.social_media_app.model.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,7 +15,7 @@ public class MessageDTO {
     private UUID id;
     private String content;
     private String image;
-    private UserDTO user;
+    private UserDto user;
     private LocalDateTime timestamp;
 }
 

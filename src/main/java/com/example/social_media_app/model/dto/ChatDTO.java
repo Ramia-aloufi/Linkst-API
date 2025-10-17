@@ -1,4 +1,4 @@
-package com.example.social_media_app.model;
+package com.example.social_media_app.model.dto;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

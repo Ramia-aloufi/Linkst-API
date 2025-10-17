@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.social_media_app.model.CommentDto;
-import com.example.social_media_app.model.PostSummaryResponse;
+import com.example.social_media_app.model.dto.CommentDto;
 import com.example.social_media_app.model.entity.Comment;
 import com.example.social_media_app.model.entity.Post;
 import com.example.social_media_app.model.entity.User;
@@ -85,7 +84,6 @@ public class CommentServiceImp implements CommentService {
         return commentDtos;
     }
 
-    @Override
     public String deleteComment(UUID id) throws Exception {
         commentRepository.deleteById(id);
         return "Commit deleted Successfully";

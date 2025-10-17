@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.example.social_media_app.model.ChatDTO;
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 

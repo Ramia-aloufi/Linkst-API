@@ -3,7 +3,7 @@ package com.example.social_media_app.service.interfaces;
 import java.util.List;
 import java.util.UUID;
 
-import com.example.social_media_app.model.ChatDTO;
+import com.example.social_media_app.model.dto.ChatDTO;
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 

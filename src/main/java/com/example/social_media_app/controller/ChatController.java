@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.social_media_app.model.ChatDTO;
+import com.example.social_media_app.model.dto.ChatDTO;
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.ChatRequest;

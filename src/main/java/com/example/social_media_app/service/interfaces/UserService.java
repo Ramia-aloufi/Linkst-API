@@ -3,9 +3,10 @@ package com.example.social_media_app.service.interfaces;
 import java.util.List;
 import java.util.UUID;
 
-import com.example.social_media_app.exception.UserException;
+import com.example.social_media_app.model.dto.UserDto;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.UserLatestStoryDTO;
+import com.example.social_media_app.utils.exception.UserException;
 
 
 
@@ -24,7 +25,7 @@ public interface UserService {
 
     User followUser(UUID userId, UUID followUserId) throws UserException;
 
-    List<User> searchUsers(String query);
+    List<UserDto> searchUsers(String query);
 
     List<UserLatestStoryDTO> getUsersWithLatestStory();
     User getUserByFullName(String fullName) throws UserException;

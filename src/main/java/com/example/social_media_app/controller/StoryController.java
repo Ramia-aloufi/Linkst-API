@@ -1,13 +1,17 @@
 package com.example.social_media_app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.social_media_app.model.dto.UserStoriesDto;
 import com.example.social_media_app.model.entity.Story;
 import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.service.CloudinaryService;
@@ -41,6 +45,16 @@ public class StoryController {
             return storyService.createStory(story, userId.getId());
         } catch (Exception e) {
             throw new RuntimeException("Error creating story: " + e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/latest")
+    public List<UserStoriesDto> getLatestStories() {
+        try {
+            return storyService.getLatestStories();
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching latest stories: " + e.getMessage());
         }
     }
 

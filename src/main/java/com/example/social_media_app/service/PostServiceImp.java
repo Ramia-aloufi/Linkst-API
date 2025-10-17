@@ -1,7 +1,6 @@
 package com.example.social_media_app.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +115,6 @@ public class PostServiceImp implements PostService {
         return post;
     }
 
-    @Override
     public Page<List<PostSummaryResponse>> getPostSummaries(UUID userId, int page, int size) throws Exception {
         User user = userService.getUserById(userId);
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());

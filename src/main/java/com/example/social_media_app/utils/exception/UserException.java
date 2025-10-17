@@ -1,4 +1,4 @@
-package com.example.social_media_app.exception;
+package com.example.social_media_app.utils.exception;
 
 public class UserException extends Exception
 {

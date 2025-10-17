@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.social_media_app.model.CommentDto;
+import com.example.social_media_app.model.dto.CommentDto;
 import com.example.social_media_app.model.entity.Comment;
 import com.example.social_media_app.model.response.CommentCreate;
 import com.example.social_media_app.model.response.CustomUserDetails;

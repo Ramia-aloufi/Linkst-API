@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.social_media_app.model.dto.UserDto;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.model.response.CustomUserDetails;
 import com.example.social_media_app.model.response.UserLatestStoryDTO;
 import com.example.social_media_app.service.interfaces.UserService;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.MessageHandler.Partial;
 
 @RestController
 @RequestMapping("/user")
-public class userController {
+public class UserController {
 
     @Autowired
     private UserService userService;
 
 
-            @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public User getUser(@PathVariable UUID id) throws Exception {
         return userService.getUserById(id);
     }
@@ -47,7 +47,7 @@ public class userController {
     }
 
     @GetMapping("/search")
-    public List<User> searchUsers(@RequestParam("query") String query) {
+    public List<UserDto> searchUsers(@RequestParam("query") String query) {
         return userService.searchUsers(query);
     }
 
@@ -87,6 +87,7 @@ public class userController {
     public List<UserLatestStoryDTO> getUsersWithLatestStory() {
         return userService.getUsersWithLatestStory();
     }
+    
     @GetMapping("/fullname/{fullName}")
     public User getUserByFullName(@PathVariable String fullName) throws Exception {
         return userService.getUserByFullName(fullName);

@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.social_media_app.model.MessageDTO;
 import com.example.social_media_app.model.MessageReq;
-import com.example.social_media_app.model.UserDTO;
+import com.example.social_media_app.model.dto.MessageDTO;
+import com.example.social_media_app.model.dto.UserDto;
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.Message;
 import com.example.social_media_app.model.entity.User;
@@ -47,7 +47,7 @@ public class MessageServiceImp implements MessageService {
         messageDTO.setContent(savedMessage.getContent());
         messageDTO.setImage(savedMessage.getImage());
         messageDTO.setTimestamp(savedMessage.getTimestamp());
-        UserDTO userDTO = new UserDTO();
+        UserDto userDTO = new UserDto();
         userDTO.setId(savedMessage.getUser().getId());
         userDTO.setFullName(savedMessage.getUser().getFullName());
         userDTO.setProfileImage(savedMessage.getUser().getProfile() != null
@@ -69,7 +69,7 @@ public class MessageServiceImp implements MessageService {
             messageDTO.setContent(message.getContent());
             messageDTO.setImage(message.getImage());
             messageDTO.setTimestamp(message.getTimestamp());
-            UserDTO userDTO = new UserDTO();
+            UserDto userDTO = new UserDto();
             userDTO.setId(message.getUser().getId());
             userDTO.setFullName(message.getUser().getFullName());
             userDTO.setProfileImage(message.getUser().getProfile() != null

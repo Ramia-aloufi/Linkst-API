@@ -1,4 +1,4 @@
-package com.example.social_media_app.model;
+package com.example.social_media_app.model.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

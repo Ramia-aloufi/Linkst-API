@@ -7,9 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.social_media_app.model.ChatDTO;
-import com.example.social_media_app.model.ChatUserDTO;
-import com.example.social_media_app.model.ProfileIMG;
+import com.example.social_media_app.model.dto.ChatDTO;
 import com.example.social_media_app.model.entity.Chat;
 import com.example.social_media_app.model.entity.User;
 import com.example.social_media_app.repository.ChatRepository;
